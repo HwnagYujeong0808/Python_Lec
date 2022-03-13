@@ -1,0 +1,23 @@
+def getJustices(president):
+    infile = open("Justices.txt", 'r')
+    listOfRecords = [line for line in infile if line.split(',')[2] == president]
+    infile.close()
+    for i in range(len(listOfRecords)):
+        listOfRecords[i] = listOfRecords[i].split(',')
+        listOfRecords[i][4] = int(listOfRecords[i][4])
+        listOfRecords[i][5] = int(listOfRecords[i][5])
+    return listOfRecords
+
+def currentJustices(justices):
+    for justice in justices:
+        if justice[5] == 0:
+            justice[5] = 2015
+
+president = input("Enter the name of a president: ")
+justices = getJustices(president)
+currentJustices(justices)
+justices.sort(key=lambda justice: justice[5] - justice[4], reverse=True)
+if len(justices) > 0:
+    print("Justices Appointed:")
+    for justice in justices:
+        print(' ',justice[0] + " " + justice[1])
